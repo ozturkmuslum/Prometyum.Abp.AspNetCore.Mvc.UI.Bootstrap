@@ -251,10 +251,10 @@ paket-files/
 .idea/
 *.sln.iml
 
-# ProcessManagement
-src/Prometyum.ProcessManagement.Web/Logs/*
-src/Prometyum.ProcessManagement.Web.Host/Logs/*
-src/Prometyum.ProcessManagement.IdentityServer/Logs/*
-src/Prometyum.ProcessManagement.HttpApi.Host/Logs/*
-src/Prometyum.ProcessManagement.HttpApi.HostWithIds/Logs/*
-src/Prometyum.ProcessManagement.DbMigrator/Logs/*
+# Sample
+src/Prometyum.Sample.Web/Logs/*
+src/Prometyum.Sample.Web.Host/Logs/*
+src/Prometyum.Sample.IdentityServer/Logs/*
+src/Prometyum.Sample.HttpApi.Host/Logs/*
+src/Prometyum.Sample.HttpApi.HostWithIds/Logs/*
+src/Prometyum.Sample.DbMigrator/Logs/*
