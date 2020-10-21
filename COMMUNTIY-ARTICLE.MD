@@ -1,2 +1,1 @@
-
-# Using the AdminLTE Theme with the ABP Framework MVC / Razor Pages UI
+# Custom TagHelpers for the ABP Framework MVC / Razor Pages UI
