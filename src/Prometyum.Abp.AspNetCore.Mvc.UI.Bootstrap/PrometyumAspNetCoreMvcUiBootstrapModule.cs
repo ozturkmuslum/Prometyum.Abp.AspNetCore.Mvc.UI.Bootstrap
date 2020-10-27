@@ -1,4 +1,4 @@
-﻿using Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.Bundling;
+﻿using Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
@@ -23,20 +23,18 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap
             {
                 options
                     .StyleBundles
-                    .Add(AdminLTEThemeBundles.Styles.Global, bundle =>
+                    .Add(PrometyumBootstrapBundles.Styles.Global, bundle =>
                     {
                         bundle
-                            .AddBaseBundles(StandardBundles.Styles.Global)
-                            .AddContributors(typeof(AdminThemeGlobalStyleContributor));
+                            .AddContributors(typeof(PrometyumBootstrapGlobalStyleContributor));
                     });
 
                 options
                     .ScriptBundles
-                    .Add(AdminLTEThemeBundles.Scripts.Global, bundle =>
+                    .Add(PrometyumBootstrapBundles.Scripts.Global, bundle =>
                     {
                         bundle
-                            .AddBaseBundles(StandardBundles.Scripts.Global)
-                            .AddContributors(typeof(AdminLTEThemeGlobalScriptContributor));
+                            .AddContributors(typeof(PrometyumBootstrapGlobalScriptContributor));
                     });
             });
         }

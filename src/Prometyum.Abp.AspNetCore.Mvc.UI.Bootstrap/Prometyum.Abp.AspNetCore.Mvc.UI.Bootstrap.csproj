@@ -6,6 +6,9 @@
     <ItemGroup>
         <EmbeddedResource Include="wwwroot\**" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="wwwroot\js\scripts.js" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI" Version="3.2.1" />

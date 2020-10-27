@@ -1,5 +1,6 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.Bundling
 @using Prometyum.Sample.Localization
 @using Volo.Abp.Users
 @model Prometyum.Sample.Web.Pages.IndexModel
@@ -15,9 +16,9 @@
         <abp-script src="/Pages/Index.js"/>
     </abp-script-bundle>
 
-    <abp-script src="/libs/bootstrap-autocomplete/bootstrap-autocomplete.js"/>
+    <abp-script-bundle name="@PrometyumBootstrapBundles.Scripts.Global" />
 
-    <script type="text/javascript">
+    @*<script type="text/javascript">
 
         $('.pro-autocomplete').each(function(index, el) {
 
@@ -69,7 +70,7 @@
                 $('.changeAutoSelect').autoComplete('clear');
 
             });
-    </script>
+    </script>*@
 }
 <div class="jumbotron text-center">
     <h1>@L["Welcome"]</h1>
