@@ -57,10 +57,10 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
         }
 
         protected virtual async Task<string> GetFormInputGroupAsHtmlAsync(TagHelperContext context, TagHelperOutput output)
-        { 
+        {
             var inputHiddenTag = await GetInputHiddenTagHelperOutputAsync(context, output);
-            var inputTag = await GetInputTagHelperOutputAsync(context, output,inputHiddenTag);
-           
+            var inputTag = await GetInputTagHelperOutputAsync(context, output, inputHiddenTag);
+
 
             var inputHtml = inputTag.Render(_encoder);
             var inputHiddenHtml = inputHiddenTag.Render(_encoder);
@@ -103,7 +103,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
                    "</div>";
         }
 
-        protected virtual TagHelper GetInputTagHelper(TagHelperContext context, TagHelperOutput output,string inputTypeName)
+        protected virtual TagHelper GetInputTagHelper(TagHelperContext context, TagHelperOutput output, string inputTypeName)
         {
             var inputTagHelper = new InputTagHelper(_generator)
             {
@@ -125,7 +125,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
 
             return inputTagHelper;
         }
-  protected virtual TagHelper GetInputHiddenTagHelper(TagHelperContext context, TagHelperOutput output,string inputTypeName)
+        protected virtual TagHelper GetInputHiddenTagHelper(TagHelperContext context, TagHelperOutput output, string inputTypeName)
         {
             var inputTagHelper = new InputTagHelper(_generator)
             {
@@ -148,13 +148,13 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
             return inputTagHelper;
         }
 
-        protected virtual async Task<TagHelperOutput> GetInputTagHelperOutputAsync(TagHelperContext context, TagHelperOutput output,TagHelperOutput hiddenOutPut)
+        protected virtual async Task<TagHelperOutput> GetInputTagHelperOutputAsync(TagHelperContext context, TagHelperOutput output, TagHelperOutput hiddenOutPut)
         {
             string inputTypeName = "text";
-            var tagHelper = GetInputTagHelper(context, output,inputTypeName);
+            var tagHelper = GetInputTagHelper(context, output, inputTypeName);
 
             var inputTagHelperOutput = await tagHelper.ProcessAndGetOutputAsync(
-                GetInputAttributes(context, output,inputTypeName),
+                GetInputAttributes(context, output, inputTypeName),
                 context,
                 "input"
             );
@@ -169,20 +169,23 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
 
             AddProAutoCompleteClass(context, output, inputTagHelperOutput);
             AddAutoCompleteOffAttribute(inputTagHelperOutput);
-            AddDataUrlAttribute(inputTagHelperOutput,TagHelper.Url);
-            AddIdOfHiddenAttribute(inputTagHelperOutput,hiddenOutPut);
+            AddSourceAttribute(inputTagHelperOutput, TagHelper.Source);
+            AddMinLengthAttribute(inputTagHelperOutput, TagHelper.MinLength);
+            AddNoResultsTextAttribute(inputTagHelperOutput, TagHelper.NoResultsText);
+            AddDefaultValueAttribute(inputTagHelperOutput, TagHelper.AspForForHidden);
+            AddIdOfHiddenAttribute(inputTagHelperOutput, hiddenOutPut);
 
-         return inputTagHelperOutput;
+            return inputTagHelperOutput;
         }
 
         protected virtual async Task<TagHelperOutput> GetInputHiddenTagHelperOutputAsync(TagHelperContext context, TagHelperOutput output)
         {
             var inputTypeName = "hidden";
 
-            var tagHelper = GetInputHiddenTagHelper(context, output,inputTypeName);
+            var tagHelper = GetInputHiddenTagHelper(context, output, inputTypeName);
 
             var inputTagHelperOutput = await tagHelper.ProcessAndGetOutputAsync(
-                GetInputAttributes(context, output,inputTypeName),
+                GetInputAttributes(context, output, inputTypeName),
                 context,
                 "input"
             );
@@ -201,7 +204,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
         {
             var className = "pro-autocomplete";
 
-            inputTagHelperOutput.Attributes.AddClass(className + " " + GetSize(context, output));
+            inputTagHelperOutput.Attributes.AddClass(className);
         }
 
         protected virtual void AddAutoFocusAttribute(TagHelperOutput inputTagHelperOutput)
@@ -238,22 +241,49 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
             }
         }
 
-        protected virtual void AddDataUrlAttribute(TagHelperOutput inputTagHelperOutput,string url)
+        protected virtual void AddSourceAttribute(TagHelperOutput inputTagHelperOutput, string source)
         {
-            if (inputTagHelperOutput.Attributes.ContainsName("data-url") == false)
+            if (inputTagHelperOutput.Attributes.ContainsName("data-source") == false)
             {
-                inputTagHelperOutput.Attributes.Add("data-url", url);
+                inputTagHelperOutput.Attributes.Add("data-source", source);
             }
         }
 
-        protected virtual void AddIdOfHiddenAttribute(TagHelperOutput inputTagHelperOutput,TagHelperOutput hiddenTagHelperOutput)
+        protected virtual void AddMinLengthAttribute(TagHelperOutput inputTagHelperOutput, int minLength)
         {
-            // get id of hidden field
-            var idOfHiddenField = hiddenTagHelperOutput.Attributes.Single(o => o.Name == "id").Value;
-
-            if (inputTagHelperOutput.Attributes.ContainsName("data-hidden-id") == false)
+            if (inputTagHelperOutput.Attributes.ContainsName("data-min-length") == false)
             {
-                inputTagHelperOutput.Attributes.Add("data-hidden-id", $"#{idOfHiddenField}");
+                inputTagHelperOutput.Attributes.Add("data-min-length", minLength);
+            }
+        }
+        protected virtual void AddNoResultsTextAttribute(TagHelperOutput inputTagHelperOutput, string noResultsText)
+        {
+            if (inputTagHelperOutput.Attributes.ContainsName("data-no-results-text") == false)
+            {
+                inputTagHelperOutput.Attributes.Add("data-no-results-text", noResultsText);
+            }
+        }
+        protected virtual void AddDefaultValueAttribute(TagHelperOutput inputTagHelperOutput, ModelExpression modelExpression)
+        {
+            if (inputTagHelperOutput.Attributes.ContainsName("data-default-value") == false)
+            {
+                var modelType = modelExpression.ModelExplorer.ModelType;
+                var defaultValue= modelType.IsValueType ? Activator.CreateInstance(modelType) : null;
+                inputTagHelperOutput.Attributes.Add("data-default-value", defaultValue);
+            }
+        }
+
+        protected virtual void AddIdOfHiddenAttribute(TagHelperOutput inputTagHelperOutput, TagHelperOutput hiddenTagHelperOutput)
+        {
+            var uniqueClass = Guid.NewGuid().ToString();
+            // get id of hidden field
+            //var idOfHiddenField = hiddenTagHelperOutput.Attributes.Single(o => o.Name == "id").Value;
+            hiddenTagHelperOutput.Attributes.AddClass(uniqueClass);
+
+
+            if (inputTagHelperOutput.Attributes.ContainsName("data-hidden-unique-class") == false)
+            {
+                inputTagHelperOutput.Attributes.Add("data-hidden-unique-class", $".{uniqueClass}");
             }
         }
 
@@ -377,7 +407,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
         }
 
 
-        protected virtual TagHelperAttributeList GetInputAttributes(TagHelperContext context, TagHelperOutput output,string inputTypeName)
+        protected virtual TagHelperAttributeList GetInputAttributes(TagHelperContext context, TagHelperOutput output, string inputTypeName)
         {
             var groupPrefix = "group-";
 

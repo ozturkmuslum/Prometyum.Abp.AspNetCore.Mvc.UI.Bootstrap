@@ -7,7 +7,7 @@ namespace Prometyum.Sample.Web.TagHelpers
         public UserAutocompleteTagHelper(ProAutocompleteTagHelperService tagHelperService) 
             : base(tagHelperService)
         {
-            Url = "/user/search";
+            Source = "/user/search";
         }
     }
 }

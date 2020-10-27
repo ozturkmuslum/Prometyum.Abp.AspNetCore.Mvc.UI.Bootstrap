@@ -24,6 +24,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
         public bool? IsReadonly { get; set; } = false;
 
         public bool AutoFocus { get; set; }
+        public int MinLength { get; set; } = 3;
 
         public AbpFormControlSize Size { get; set; } = AbpFormControlSize.Default;
 
@@ -37,7 +38,8 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
         public bool SuppressLabel { get; set; }
 
         [HtmlAttributeName("source")]
-        public string Url { get; set; }
+        public string Source { get; set; }
+        public string NoResultsText { get; set; }
 
         public ProAutocompleteTagHelper(ProAutocompleteTagHelperService tagHelperService)
             : base(tagHelperService)

@@ -7,7 +7,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.Bundling
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
             context.Files.Add("/libs/bootstrap-autocomplete/bootstrap-autocomplete.js");
-            context.Files.Add("/js/scripts.js");
+            //context.Files.Add("/js/scripts.js");
         }
     }
 }
