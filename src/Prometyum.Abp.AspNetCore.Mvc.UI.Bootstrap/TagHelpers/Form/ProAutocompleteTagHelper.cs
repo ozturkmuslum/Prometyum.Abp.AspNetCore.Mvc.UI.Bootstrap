@@ -40,6 +40,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
         [HtmlAttributeName("source")]
         public string Source { get; set; }
         public string NoResultsText { get; set; }
+        public string OnSelectedChanged { get; set; }
 
         public ProAutocompleteTagHelper(ProAutocompleteTagHelperService tagHelperService)
             : base(tagHelperService)

@@ -1,21 +1,4 @@
-﻿@page
-@using Microsoft.AspNetCore.Mvc.Localization
-@using Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.Bundling
-@using Prometyum.Sample.Localization
-@using Volo.Abp.Users
-@model Prometyum.Sample.Web.Pages.TagHelpers.AutocompleteModel
-@inject IHtmlLocalizer<SampleResource> L
-@inject ICurrentUser CurrentUser
-@section styles {
-  
-}
-@section scripts {
-  
-    <abp-script-bundle name="@PrometyumBootstrapBundles.Scripts.Global" />
-
-    <script type="text/javascript">
-
-        $('.pro-autocomplete').each(function(index, el) {
+﻿ $('.pro-autocomplete').each(function(index, el) {
             var $el = $(el);
 
             var defaultValue = $el.data("default-value");
@@ -66,38 +49,19 @@
                 setTimeout(onSelectedChanged + "('" + value + "','"+text+"')", 5);
             };
         }
-       
 
-        // user then clicks on some button and we need to change that default value
-        $('.btnChangeAutoSelect').on('click',
-            function() {
-                var e = $(this);
-                $('.changeAutoSelect').autoComplete('set', { value: e.data('value'), text: e.data('text') });
-            });
+//// user then clicks on some button and we need to change that default value
+//$('.btnChangeAutoSelect').on('click',
+//    function() {
+//        var e = $(this);
+//        $('.changeAutoSelect').autoComplete('set', { value: e.data('value'), text: e.data('text') });
+//    });
 
-        // clear current value
-        $('.btnClearAutoSelect').on('click',
-            function() {
-                var e = $(this);
-                // $('.changeAutoSelect').autoComplete('set', null);
-                $('.changeAutoSelect').autoComplete('clear');
+//// clear current value
+//$('.btnClearAutoSelect').on('click',
+//    function() {
+//        var e = $(this);
+//        // $('.changeAutoSelect').autoComplete('set', null);
+//        $('.changeAutoSelect').autoComplete('clear');
 
-            });
-    </script>
-}
-
-<div class="card">
-    <div class="card-body">
-        <form>
-            <user-autocomplete asp-for="Text" asp-for-hidden="Value" no-results-text="Seçim yapmadınız" source="/user/search"></user-autocomplete>
-        </form>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-body">
-        <form>
-            <pro-autocomplete asp-for="Text" asp-for-hidden="Value" source="/user/search" placeholder="arama yapınız."></pro-autocomplete>
-        </form>
-    </div>
-</div>
+//    });

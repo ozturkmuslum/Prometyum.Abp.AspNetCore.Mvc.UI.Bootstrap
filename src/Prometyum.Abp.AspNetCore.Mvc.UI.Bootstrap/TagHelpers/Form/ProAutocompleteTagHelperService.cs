@@ -172,6 +172,7 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
             AddSourceAttribute(inputTagHelperOutput, TagHelper.Source);
             AddMinLengthAttribute(inputTagHelperOutput, TagHelper.MinLength);
             AddNoResultsTextAttribute(inputTagHelperOutput, TagHelper.NoResultsText);
+            AddOnSelectedChangedAttribute(inputTagHelperOutput, TagHelper.OnSelectedChanged);
             AddDefaultValueAttribute(inputTagHelperOutput, TagHelper.AspForForHidden);
             AddIdOfHiddenAttribute(inputTagHelperOutput, hiddenOutPut);
 
@@ -261,6 +262,14 @@ namespace Prometyum.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
             if (inputTagHelperOutput.Attributes.ContainsName("data-no-results-text") == false)
             {
                 inputTagHelperOutput.Attributes.Add("data-no-results-text", noResultsText);
+            }
+        }
+
+        protected virtual void AddOnSelectedChangedAttribute(TagHelperOutput inputTagHelperOutput, string onSelectedChanged)
+        {
+            if (inputTagHelperOutput.Attributes.ContainsName("data-on-selected-changed") == false)
+            {
+                inputTagHelperOutput.Attributes.Add("data-on-selected-changed", onSelectedChanged);
             }
         }
         protected virtual void AddDefaultValueAttribute(TagHelperOutput inputTagHelperOutput, ModelExpression modelExpression)

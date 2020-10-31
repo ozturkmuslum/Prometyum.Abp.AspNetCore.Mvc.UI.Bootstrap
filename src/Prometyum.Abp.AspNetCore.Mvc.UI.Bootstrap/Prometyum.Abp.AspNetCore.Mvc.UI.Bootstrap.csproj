@@ -7,7 +7,8 @@
         <EmbeddedResource Include="wwwroot\**" />
     </ItemGroup>
     <ItemGroup>
-      <None Remove="wwwroot\js\scripts.js" />
+      <None Remove="wwwroot\js\prometyum.js" />
+      <None Remove="wwwroot\js\taghelpers.js" />
     </ItemGroup>
 
     <ItemGroup>
